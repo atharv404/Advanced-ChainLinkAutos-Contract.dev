@@ -1,11 +1,11 @@
 {
-  "name": "contractdev-staging-qa-minimal",
+  "name": "contractdev-aave-liquidation-qa",
   "version": "1.0.0",
-  "description": "Minimal QA project for Chainlink Automation and Aave v3 on contract.dev staging",
+  "description": "Minimal QA project to test Aave v3 liquidation with manual oracle on contract.dev staging",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
-    "run-tests": "node scripts/run-tests.js"
+    "deploy": "hardhat run scripts/deploy.js --network contractDevEthereum"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",

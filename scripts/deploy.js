@@ -1,22 +1,24 @@
 const { ethers } = require("hardhat");
+require("dotenv").config();
 
 async function main() {
   const [deployer] = await ethers.getSigners();
   console.log("Deployer:", deployer.address);
 
-  const AutomationCounter = await ethers.getContractFactory("AutomationCounter");
-  const counter = await AutomationCounter.deploy(10); // every 10 blocks
-  await counter.waitForDeployment();
-  console.log("AutomationCounter:", await counter.getAddress());
+  const pool = process.env.AAVE_POOL;
+  const oracle = process.env.MANUAL_ORACLE;
+  const collateral = process.env.AAVE_WETH;
+  const debt = process.env.AAVE_DAI;
 
-  // For local tests we pass dummy addresses; on staging, replace with real Aave pool + WETH
-  const AaveBasicTest = await ethers.getContractFactory("AaveBasicTest");
-  const POOL = process.env.AAVE_POOL || "0x0000000000000000000000000000000000000001";
-  const WETH = process.env.AAVE_WETH || "0x0000000000000000000000000000000000000002";
+  if (!pool || !oracle || !collateral || !debt) {
+    throw new Error("Set AAVE_POOL, MANUAL_ORACLE, AAVE_WETH, AAVE_DAI in .env");
+  }
 
-  const aave = await AaveBasicTest.deploy(POOL, WETH);
-  await aave.waitForDeployment();
-  console.log("AaveBasicTest:", await aave.getAddress());
+  const TestAaveLiquidation = await ethers.getContractFactory("TestAaveLiquidation");
+  const test = await TestAaveLiquidation.deploy(pool, oracle, collateral, debt);
+  await test.waitForDeployment();
+
+  console.log("TestAaveLiquidation deployed at:", await test.getAddress());
 }
 
 main().catch((e) => {
