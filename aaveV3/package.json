@@ -1,0 +1,23 @@
+{
+  "name": "contractdev-aave-liquidation-qa",
+  "version": "1.0.0",
+  "description": "Minimal QA project to test Aave v3 liquidation with manual oracle on contract.dev staging",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.js --network contractDevEthereum"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "chai": "^4.3.10",
+    "ethers": "^6.10.0",
+    "hardhat": "^2.22.0",
+    "mocha": "^10.4.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
